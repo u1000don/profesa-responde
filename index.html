@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PROFESA Response Network | Powered by Relay</title>
+<meta name="description" content="Conectamos profesionales, organizaciones y empresas para acelerar la recuperacion tras desastres. Coordinacion, no custodia.">
+
+<!-- Social link preview (WhatsApp, iMessage, X, LinkedIn) -->
+<!-- IMPORTANT: drop a 1200x630 image named og-cover.png into this folder before publishing, and replace https://u1000don.github.io/profesa-responde/ with the live URL after deploy -->
+<meta property="og:title" content="PROFESA Response Network | Respuesta al Terremoto de Venezuela">
+<meta property="og:description" content="Ayuda organizada llega mas lejos. Conectamos organizaciones verificadas, empresas y voluntarios profesionales. PROFESA no recauda fondos: todo apoyo va directo a la organizacion que lo recibe.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://u1000don.github.io/profesa-responde/">
+<meta property="og:image" content="og-cover.png">
+<meta property="og:locale" content="es_US">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:site_name" content="PROFESA Response Network">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0B2545">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230B2545'/%3E%3Ctext x='32' y='42' font-family='Arial,Helvetica,sans-serif' font-size='24' font-weight='800' fill='%235BA4E6' text-anchor='middle'%3EPRN%3C/text%3E%3C/svg%3E">
+<style>
+  :root {
+    --navy: #0B2545;
+    --navy-2: #13315C;
+    --blue: #2E6FB7;
+    --blue-light: #EAF2FB;
+    --sky: #5BA4E6;
+    --gray: #F4F6F8;
+    --gray-2: #E4E8ED;
+    --text: #1C2733;
+    --text-soft: #5A6470;
+    --white: #FFFFFF;
+    --green: #1E7F4F;
+    --red: #C0392B;
+    --amber: #B7791F;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--text);
+    background: var(--white);
+    line-height: 1.6;
+  }
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+  /* Language toggle behavior */
+  [data-lang="en"] { display: none; }
+  body.lang-en [data-lang="en"] { display: revert; }
+  body.lang-en [data-lang="es"] { display: none; }
+
+  /* Nav */
+  nav {
+    background: var(--navy);
+    color: var(--white);
+    position: sticky; top: 0; z-index: 50;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.08);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; max-width: 1120px; margin: 0 auto; }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand-mark {
+    width: 38px; height: 38px; border-radius: 8px;
+    background: var(--sky); color: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 15px; letter-spacing: 0.5px;
+  }
+  .brand-text { line-height: 1.2; }
+  .brand-text strong { font-size: 15px; display: block; }
+  .brand-text span { font-size: 11.5px; opacity: 0.75; }
+  .lang-toggle {
+    background: transparent; color: var(--white);
+    border: 1px solid rgba(255,255,255,0.35); border-radius: 6px;
+    padding: 6px 14px; font-size: 13px; font-weight: 600; cursor: pointer;
+  }
+  .lang-toggle:hover { background: rgba(255,255,255,0.1); }
+
+  /* Hero — full screen with media background slot */
+  header.hero {
+    background: var(--navy); color: var(--white);
+    position: relative; overflow: hidden;
+    min-height: calc(100vh - 67px); min-height: calc(100svh - 67px);
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; padding: 48px 0;
+  }
+  .hero-media { position: absolute; inset: 0; z-index: 0; }
+  .hero-media video, .hero-media img {
+    width: 100%; height: 100%; object-fit: cover; object-position: center;
+  }
+  /* Flat scrim for text legibility over the media (not decorative) */
+  .hero-scrim { position: absolute; inset: 0; background: rgba(11,37,69,0.62); z-index: 1; }
+  .hero .container { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
+  .hero h1 { font-size: clamp(32px, 5vw, 54px); font-weight: 800; line-height: 1.12; max-width: 880px; }
+  .hero p.sub { font-size: clamp(16px, 2.1vw, 20px); opacity: 0.9; max-width: 700px; margin: 22px auto 34px; }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+  .scroll-cue {
+    position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%);
+    z-index: 2; color: rgba(255,255,255,0.75); font-size: 22px; text-decoration: none;
+    animation: cue 2s ease-in-out infinite;
+  }
+  @keyframes cue { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 7px); } }
+  @media (prefers-reduced-motion: reduce) { .scroll-cue { animation: none; } }
+  .btn {
+    display: inline-block; text-decoration: none; font-weight: 700; font-size: 15px;
+    padding: 13px 26px; border-radius: 8px; transition: opacity .15s;
+  }
+  .btn:hover { opacity: 0.88; }
+  .btn-primary { background: var(--sky); color: var(--navy); }
+  .btn-outline { border: 2px solid rgba(255,255,255,0.5); color: var(--white); }
+  .hero-tagline { margin-top: 40px; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.65; font-weight: 600; }
+
+  /* Status strip */
+  .status-strip { background: var(--navy-2); color: var(--white); padding: 14px 0; }
+  .status-strip .container { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 14px; }
+  .badge {
+    display: inline-block; padding: 3px 12px; border-radius: 20px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+  }
+  .badge-live { background: #E8F6EE; color: var(--green); }
+  .badge-critical { background: #FDEBE8; color: var(--red); }
+  .badge-high { background: #FBF1DF; color: var(--amber); }
+
+  /* Sections */
+  section { padding: 64px 0; }
+  section.alt { background: var(--gray); }
+  h2 { font-size: clamp(24px, 3vw, 32px); font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+  .section-lead { color: var(--text-soft); font-size: 16.5px; max-width: 640px; margin-bottom: 36px; }
+
+  /* Counters */
+  .counters { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .counter-card {
+    background: var(--white); border: 1px solid var(--gray-2); border-radius: 12px;
+    padding: 28px 24px; text-align: center;
+  }
+  section.alt .counter-card { box-shadow: 0 1px 3px rgba(11,37,69,0.06); border: none; }
+  .counter-num { font-size: 40px; font-weight: 800; color: var(--navy); line-height: 1; }
+  .counter-label { font-size: 13.5px; color: var(--text-soft); margin-top: 8px; font-weight: 600; }
+
+  /* Cards grid */
+  .grid { display: grid; gap: 16px; }
+  .grid-3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .grid-4 { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+  .card {
+    background: var(--white); border: 1px solid var(--gray-2); border-radius: 12px; padding: 26px;
+  }
+  section.alt .card { border: none; box-shadow: 0 1px 3px rgba(11,37,69,0.06); }
+  .card h3 { font-size: 17px; color: var(--navy); margin-bottom: 8px; font-weight: 700; }
+  .card p { font-size: 14.5px; color: var(--text-soft); }
+  .card .num {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--blue-light); color: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 15px; margin-bottom: 14px;
+  }
+
+  /* What we don't do */
+  .no-block {
+    background: var(--white); border-left: 5px solid var(--red);
+    border-radius: 10px; padding: 30px 32px;
+    box-shadow: 0 1px 3px rgba(11,37,69,0.06);
+  }
+  .no-block h3 { color: var(--navy); font-size: 19px; margin-bottom: 14px; }
+  .no-block ul { list-style: none; }
+  .no-block li { padding: 7px 0; font-size: 15.5px; display: flex; gap: 10px; align-items: baseline; }
+  .no-block li::before { content: "✕"; color: var(--red); font-weight: 800; font-size: 14px; }
+  .no-block li.yes::before { content: "✓"; color: var(--green); }
+  .no-block li.yes { font-weight: 700; color: var(--navy); }
+
+  /* Current response */
+  .response-card {
+    background: var(--navy); color: var(--white); border-radius: 14px; padding: 40px;
+    display: grid; gap: 28px; grid-template-columns: 1.4fr 1fr; align-items: center;
+  }
+  @media (max-width: 760px) { .response-card { grid-template-columns: 1fr; } }
+  .response-card h3 { font-size: 26px; font-weight: 800; margin: 10px 0 12px; }
+  .response-card p { opacity: 0.85; font-size: 15.5px; }
+  .response-needs { display: grid; gap: 10px; }
+  .need-row {
+    background: rgba(255,255,255,0.07); border-radius: 8px; padding: 12px 16px;
+    display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 14px;
+  }
+
+  /* Roles */
+  .role-time { display: inline-block; margin-top: 10px; font-size: 12.5px; font-weight: 700; color: var(--blue); background: var(--blue-light); border-radius: 20px; padding: 3px 12px; }
+
+  /* Partners */
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip {
+    background: var(--white); border: 1px solid var(--gray-2); border-radius: 24px;
+    padding: 9px 20px; font-size: 14px; font-weight: 600; color: var(--navy);
+  }
+
+  /* CTA band */
+  .cta-band { background: var(--blue); color: var(--white); text-align: center; padding: 56px 0; }
+  .cta-band h2 { color: var(--white); }
+  .cta-band p { opacity: 0.9; margin: 10px auto 28px; max-width: 560px; }
+  .cta-band .btn-primary { background: var(--white); color: var(--navy); }
+
+  /* About */
+  .about-wrap { display: grid; grid-template-columns: 1.5fr 1fr; gap: 24px; align-items: stretch; }
+  @media (max-width: 760px) { .about-wrap { grid-template-columns: 1fr; } }
+  .leader-card {
+    background: var(--white); border: 1px solid var(--gray-2); border-radius: 12px;
+    padding: 26px; display: flex; flex-direction: column; justify-content: center; gap: 14px;
+  }
+  .leader-row { display: flex; align-items: center; gap: 16px; }
+  .avatar {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--navy); color: var(--sky);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 19px; flex-shrink: 0;
+  }
+  .leader-name { font-weight: 800; color: var(--navy); font-size: 16.5px; line-height: 1.3; }
+  .leader-title { font-size: 13.5px; color: var(--text-soft); }
+  .leader-card a { color: var(--blue); font-weight: 600; text-decoration: none; font-size: 14px; }
+  .leader-card a:hover { text-decoration: underline; }
+
+  /* Example connection */
+  .example-tag {
+    display: inline-block; background: var(--blue-light); color: var(--blue);
+    font-size: 12px; font-weight: 800; letter-spacing: 0.8px; text-transform: uppercase;
+    border-radius: 20px; padding: 4px 14px; margin-bottom: 14px;
+  }
+  .flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 18px; }
+  .flow-step {
+    background: var(--white); border: 1px solid var(--gray-2); border-radius: 8px;
+    padding: 10px 14px; font-size: 13.5px; font-weight: 600; color: var(--navy);
+  }
+  .flow-arrow { color: var(--blue); font-weight: 800; }
+
+  /* FAQ */
+  details.faq {
+    background: var(--white); border: 1px solid var(--gray-2); border-radius: 12px;
+    padding: 0; margin-bottom: 12px; overflow: hidden;
+  }
+  section.alt details.faq { border: none; box-shadow: 0 1px 3px rgba(11,37,69,0.06); }
+  details.faq summary {
+    cursor: pointer; list-style: none; padding: 20px 26px;
+    font-weight: 700; color: var(--navy); font-size: 15.5px;
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  }
+  details.faq summary::-webkit-details-marker { display: none; }
+  details.faq summary::after { content: "+"; font-size: 22px; color: var(--blue); font-weight: 400; flex-shrink: 0; }
+  details.faq[open] summary::after { content: "−"; }
+  details.faq .faq-body { padding: 0 26px 22px; font-size: 14.5px; color: var(--text-soft); }
+
+  /* Share row */
+  .share-row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 22px; }
+  .share-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.14); color: var(--white);
+    border: 1px solid rgba(255,255,255,0.35); border-radius: 8px;
+    padding: 10px 20px; font-size: 14px; font-weight: 700; cursor: pointer; text-decoration: none;
+  }
+  .share-btn:hover { background: rgba(255,255,255,0.24); }
+
+  /* Contact block */
+  .contact-block {
+    display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between;
+    background: rgba(255,255,255,0.06); border-radius: 10px; padding: 22px 26px; margin-bottom: 28px;
+  }
+  .contact-block a { color: var(--sky); font-weight: 700; text-decoration: none; font-size: 15px; }
+  .contact-block a:hover { text-decoration: underline; }
+  .contact-meta { font-size: 12.5px; opacity: 0.75; margin-top: 4px; }
+
+  /* Footer */
+  footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 48px 0 36px; font-size: 13.5px; }
+  footer .disclaimer {
+    background: rgba(255,255,255,0.06); border-radius: 10px; padding: 22px 26px;
+    margin-bottom: 28px; line-height: 1.7;
+  }
+  footer .foot-brand { color: var(--white); font-weight: 700; font-size: 15px; }
+  footer .foot-meta { margin-top: 6px; font-size: 12.5px; opacity: 0.7; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand">
+      <div class="brand-mark">PRN</div>
+      <div class="brand-text">
+        <strong>PROFESA Response Network</strong>
+        <span>Powered by Relay</span>
+      </div>
+    </div>
+    <button class="lang-toggle" onclick="toggleLang()"><span data-lang="es">English</span><span data-lang="en">Español</span></button>
+  </div>
+</nav>
+
+<header class="hero">
+  <!--
+    MEDIA SLOT: drop your file into this folder and it appears automatically.
+    - Video: name it  hero.mp4  (fullscreen 16:9 looks best on desktop; a 9:16 vertical clip
+      will be center-cropped on desktop and look perfect on phones)
+    - Photo fallback/poster: name it  hero.jpg
+    If neither file exists, the hero stays solid navy. Keep video short (10-20s), muted, no text in frame.
+  -->
+  <div class="hero-media" id="heroMedia">
+    <video autoplay muted loop playsinline poster="hero.jpg" id="heroVideo">
+      <source src="hero.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-scrim"></div>
+  <div class="container">
+    <h1 data-lang="es">Coordinación de desastres impulsada por profesionales.</h1>
+    <h1 data-lang="en">Disaster coordination powered by professionals.</h1>
+    <p class="sub" data-lang="es">Conectamos organizaciones verificadas, empresas, voluntarios y expertos profesionales para que la ayuda llegue al lugar correcto, más rápido.</p>
+    <p class="sub" data-lang="en">We connect verified organizations, businesses, volunteers, and professional experts so help reaches the right place, faster.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="mailto:president@profesafl.com?subject=Quiero%20ofrecer%20ayuda%20-%20PROFESA%20Response%20Network"><span data-lang="es">Ofrecer ayuda</span><span data-lang="en">Offer help</span></a>
+      <a class="btn btn-outline" href="mailto:president@profesafl.com?subject=Registrar%20una%20necesidad%20-%20PROFESA%20Response%20Network"><span data-lang="es">Registrar una necesidad</span><span data-lang="en">Submit a need</span></a>
+      <a class="btn btn-outline" href="https://docs.google.com/forms/d/e/1FAIpQLSfg2-Iob0suaObTUSltjCHF2VEXz3uLafzRjJc7Nh-P3460lw/viewform"><span data-lang="es">Ser voluntario</span><span data-lang="en">Volunteer</span></a>
+    </div>
+    <div class="hero-tagline" data-lang="es">Coordinación, no custodia · Necesidades verificadas · Aliados confiables · Impacto medible</div>
+    <div class="hero-tagline" data-lang="en">Coordination, not custody · Verified needs · Trusted partners · Measurable impact</div>
+  </div>
+  <a class="scroll-cue" href="#live" aria-label="Scroll">▾</a>
+</header>
+
+<div class="status-strip" id="live">
+  <div class="container">
+    <span class="badge badge-live" data-lang="es">Respuesta activa</span>
+    <span class="badge badge-live" data-lang="en">Active response</span>
+    <span data-lang="es"><strong>Respuesta al Terremoto de Venezuela</strong> · coordinada desde el sur de la Florida</span>
+    <span data-lang="en"><strong>Venezuela Earthquake Response</strong> · coordinated from South Florida</span>
+  </div>
+</div>
+
+<section class="alt">
+  <div class="container">
+    <h2 data-lang="es">La red se está movilizando</h2>
+    <h2 data-lang="en">The network is mobilizing</h2>
+    <p class="section-lead" data-lang="es">Esto es lo que hay detrás de la respuesta desde el primer día.</p>
+    <p class="section-lead" data-lang="en">This is what stands behind the response from day one.</p>
+    <div class="counters">
+      <div class="counter-card">
+        <div class="counter-num"><span data-count="80">0</span>+</div>
+        <div class="counter-label" data-lang="es">Profesionales en la red PROFESA</div>
+        <div class="counter-label" data-lang="en">Professionals in the PROFESA network</div>
+      </div>
+      <div class="counter-card">
+        <div class="counter-num" data-count="4">0</div>
+        <div class="counter-label" data-lang="es">Roles de voluntariado abiertos</div>
+        <div class="counter-label" data-lang="en">Volunteer roles open</div>
+      </div>
+      <div class="counter-card">
+        <div class="counter-num" data-count="1">0</div>
+        <div class="counter-label" data-lang="es">Respuesta activa: Venezuela</div>
+        <div class="counter-label" data-lang="en">Active response: Venezuela</div>
+      </div>
+      <div class="counter-card">
+        <div class="counter-num"><span data-count="100">0</span>%</div>
+        <div class="counter-label" data-lang="es">Conexiones aprobadas por nuestro equipo</div>
+        <div class="counter-label" data-lang="en">Connections approved by our team</div>
+      </div>
+    </div>
+    <p style="margin-top:18px;font-size:13.5px;color:var(--text-soft)" data-lang="es">Los contadores de impacto (organizaciones verificadas, necesidades atendidas, conexiones realizadas) se publican en vivo en esta página a medida que la respuesta avanza. Transparencia desde el día uno.</p>
+    <p style="margin-top:18px;font-size:13.5px;color:var(--text-soft)" data-lang="en">Impact counters (verified organizations, needs met, connections made) are published live on this page as the response advances. Transparency from day one.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2 data-lang="es">Qué hacemos</h2>
+    <h2 data-lang="en">What we do</h2>
+    <p class="section-lead" data-lang="es">Somos la capa de coordinación entre quienes necesitan ayuda y quienes pueden darla.</p>
+    <p class="section-lead" data-lang="en">We are the coordination layer between those who need help and those who can give it.</p>
+    <div class="grid grid-4">
+      <div class="card"><h3 data-lang="es">Coordinar</h3><h3 data-lang="en">Coordinate</h3><p data-lang="es">Organizamos la respuesta para que nada se duplique ni se pierda.</p><p data-lang="en">We organize the response so nothing is duplicated or lost.</p></div>
+      <div class="card"><h3 data-lang="es">Verificar</h3><h3 data-lang="en">Verify</h3><p data-lang="es">Cada organización es verificada por la red PROFESA antes de publicarse.</p><p data-lang="en">Every organization is verified by the PROFESA network before publishing.</p></div>
+      <div class="card"><h3 data-lang="es">Conectar</h3><h3 data-lang="en">Connect</h3><p data-lang="es">Cruzamos necesidades verificadas con recursos disponibles. Nuestro equipo aprueba cada conexión.</p><p data-lang="en">We match verified needs with available resources. Our team approves every connection.</p></div>
+      <div class="card"><h3 data-lang="es">Documentar</h3><h3 data-lang="en">Document</h3><p data-lang="es">Cada acción queda registrada con estado, responsable y evidencia.</p><p data-lang="en">Every action is logged with status, owner, and evidence.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <h2 data-lang="es">Qué NO hacemos</h2>
+    <h2 data-lang="en">What we do NOT do</h2>
+    <p class="section-lead" data-lang="es">La confianza empieza por decir claramente lo que no somos.</p>
+    <p class="section-lead" data-lang="en">Trust starts with saying clearly what we are not.</p>
+    <div class="no-block">
+      <ul data-lang="es">
+        <li>No recaudamos donaciones para desastres</li>
+        <li>No recibimos ni manejamos fondos</li>
+        <li>No distribuimos suministros</li>
+        <li>No reemplazamos a las organizaciones de ayuda</li>
+        <li class="yes">Conectamos aliados verificados. Todo apoyo va directo a la organización que lo recibe.</li>
+      </ul>
+      <ul data-lang="en">
+        <li>We do not collect disaster donations</li>
+        <li>We do not receive or hold funds</li>
+        <li>We do not distribute supplies</li>
+        <li>We do not replace relief organizations</li>
+        <li class="yes">We connect verified partners. All support goes directly to the receiving organization.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2 data-lang="es">Cómo funciona</h2>
+    <h2 data-lang="en">How it works</h2>
+    <p class="section-lead" data-lang="es">Seis pasos, con un proceso claro y personas aprobando cada decisión.</p>
+    <p class="section-lead" data-lang="en">Six steps, with a clear process and people approving every decision.</p>
+    <div class="grid grid-3">
+      <div class="card"><div class="num">1</div><h3 data-lang="es">Las organizaciones registran necesidades</h3><h3 data-lang="en">Organizations submit needs</h3></div>
+      <div class="card"><div class="num">2</div><h3 data-lang="es">PROFESA verifica cada organización</h3><h3 data-lang="en">PROFESA verifies each organization</h3></div>
+      <div class="card"><div class="num">3</div><h3 data-lang="es">Empresas y profesionales ofrecen ayuda</h3><h3 data-lang="en">Businesses and professionals offer help</h3></div>
+      <div class="card"><div class="num">4</div><h3 data-lang="es">Se identifican las mejores coincidencias</h3><h3 data-lang="en">The best matches are identified</h3></div>
+      <div class="card"><div class="num">5</div><h3 data-lang="es">El equipo aprueba cada conexión</h3><h3 data-lang="en">The team approves every connection</h3></div>
+      <div class="card"><div class="num">6</div><h3 data-lang="es">El progreso se documenta y publica</h3><h3 data-lang="en">Progress is documented and published</h3></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <h2 data-lang="es">Quiénes somos</h2>
+    <h2 data-lang="en">Who we are</h2>
+    <p class="section-lead" data-lang="es">Detrás de esta plataforma hay una red real de profesionales.</p>
+    <p class="section-lead" data-lang="en">Behind this platform is a real network of professionals.</p>
+    <div class="about-wrap">
+      <div class="card">
+        <img src="profesa-logo.jpg" alt="PROFESA, Asociación de Profesionales Puertorriqueños" style="max-width:210px;width:100%;margin:-8px 0 10px -10px">
+        <p data-lang="es">PROFESA es la Asociación de Profesionales Puertorriqueños del sur de la Florida: más de 80 ingenieros, médicos, abogados, educadores, empresarios y especialistas en tecnología. Sabemos lo que es ver a nuestra tierra necesitar ayuda, y sabemos lo que la diáspora organizada puede lograr. PROFESA Response Network nació para eso: poner la experiencia profesional de nuestra red al servicio de las comunidades que más lo necesitan, con orden, verificación y transparencia. Hoy, por Venezuela.</p>
+        <p data-lang="en">PROFESA is the Puerto Rican Professionals Association of South Florida: more than 80 engineers, doctors, attorneys, educators, entrepreneurs, and technology specialists. We know what it is to see our homeland in need, and we know what an organized diaspora can achieve. The PROFESA Response Network was born for exactly that: putting our network's professional expertise at the service of the communities that need it most, with order, verification, and transparency. Today, for Venezuela.</p>
+      </div>
+      <div class="leader-card">
+        <div class="leader-row">
+          <!-- Replace the initials block with a real photo when available: <img src="jose-cruz.jpg" class="avatar" alt="Jose Cruz"> -->
+          <div class="avatar">JC</div>
+          <div>
+            <div class="leader-name">Jose Cruz</div>
+            <div class="leader-title" data-lang="es">Presidente de PROFESA</div>
+            <div class="leader-title" data-lang="en">President of PROFESA</div>
+          </div>
+        </div>
+        <p style="font-size:14px;color:var(--text-soft)" data-lang="es">"La ayuda desorganizada se pierde. La ayuda coordinada transforma. Eso es lo que esta red sabe hacer."</p>
+        <p style="font-size:14px;color:var(--text-soft)" data-lang="en">"Disorganized help gets lost. Coordinated help transforms. That is what this network knows how to do."</p>
+        <a href="mailto:president@profesafl.com">president@profesafl.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2 data-lang="es">Cómo verificamos</h2>
+    <h2 data-lang="en">How we verify</h2>
+    <p class="section-lead" data-lang="es">La insignia de verificada no se regala. Este es el proceso que pasa cada organización antes de publicarse.</p>
+    <p class="section-lead" data-lang="en">The verified badge is not given away. This is the process every organization goes through before publishing.</p>
+    <div class="grid grid-4">
+      <div class="card"><div class="num">1</div><h3 data-lang="es">Registro</h3><h3 data-lang="en">Registration</h3><p data-lang="es">La organización se registra con sus datos, contactos y documentos.</p><p data-lang="en">The organization registers with its details, contacts, and documents.</p></div>
+      <div class="card"><div class="num">2</div><h3 data-lang="es">Aval de la red</h3><h3 data-lang="en">Network vouching</h3><p data-lang="es">Un miembro de la red PROFESA avala a la organización personalmente.</p><p data-lang="en">A member of the PROFESA network personally vouches for the organization.</p></div>
+      <div class="card"><div class="num">3</div><h3 data-lang="es">Revisión directa</h3><h3 data-lang="en">Direct review</h3><p data-lang="es">Revisamos documentos y hablamos directamente con la organización.</p><p data-lang="en">We review documents and speak directly with the organization.</p></div>
+      <div class="card"><div class="num">4</div><h3 data-lang="es">Insignia y publicación</h3><h3 data-lang="en">Badge and publication</h3><p data-lang="es">Solo entonces recibe la insignia de verificada y se publica.</p><p data-lang="en">Only then does it receive the verified badge and get published.</p></div>
+    </div>
+    <p style="margin-top:18px;font-size:13.5px;color:var(--text-soft)" data-lang="es">Nada sin verificar se presenta como verificado. Los estados son siempre visibles: pendiente, en revisión, verificada.</p>
+    <p style="margin-top:18px;font-size:13.5px;color:var(--text-soft)" data-lang="en">Nothing unverified is ever presented as verified. States are always visible: pending, under review, verified.</p>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <div class="response-card">
+      <div>
+        <span class="badge badge-live" data-lang="es">Activa</span>
+        <span class="badge badge-live" data-lang="en">Active</span>
+        <h3 data-lang="es">Respuesta al Terremoto de Venezuela</h3>
+        <h3 data-lang="en">Venezuela Earthquake Response</h3>
+        <p data-lang="es">Una iniciativa de coordinación liderada desde el sur de la Florida para conectar organizaciones verificadas, empresas, voluntarios profesionales y aliados que apoyan la recuperación en Venezuela.</p>
+        <p data-lang="en">A coordination initiative led from South Florida to connect verified organizations, businesses, professional volunteers, and partners supporting recovery efforts in Venezuela.</p>
+      </div>
+      <div class="response-needs">
+        <div class="need-row"><span data-lang="es">Energía para clínicas</span><span data-lang="en">Power for clinics</span><span class="badge badge-critical" data-lang="es">Crítico</span><span class="badge badge-critical" data-lang="en">Critical</span></div>
+        <div class="need-row"><span data-lang="es">Internet para coordinación</span><span data-lang="en">Internet for coordination</span><span class="badge badge-high" data-lang="es">Alto</span><span class="badge badge-high" data-lang="en">High</span></div>
+        <div class="need-row"><span data-lang="es">Revisión de ingeniería estructural</span><span data-lang="en">Structural engineering review</span><span class="badge badge-high" data-lang="es">Alto</span><span class="badge badge-high" data-lang="en">High</span></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:24px">
+      <span class="example-tag" data-lang="es">Ejemplo ilustrativo</span>
+      <span class="example-tag" data-lang="en">Illustrative example</span>
+      <h3 data-lang="es">Así se ve una conexión de principio a fin</h3>
+      <h3 data-lang="en">This is what a connection looks like, start to finish</h3>
+      <p data-lang="es">Una clínica en Venezuela registra que necesita energía para operar. Una empresa del sur de la Florida ofrece 10 sistemas de baterías portátiles. El sistema detecta la coincidencia y la presenta al equipo. Un coordinador la revisa y la aprueba. PROFESA presenta a las dos partes. La empresa entrega los equipos DIRECTAMENTE a la clínica, sin intermediarios de fondos. Cada paso queda documentado y el avance se publica en esta página.</p>
+      <p data-lang="en">A clinic in Venezuela registers that it needs power to operate. A South Florida business offers 10 portable battery systems. The system detects the match and presents it to the team. A coordinator reviews and approves it. PROFESA introduces the two parties. The business delivers the equipment DIRECTLY to the clinic, with no funds intermediary. Every step is documented and progress is published on this page.</p>
+      <div class="flow" data-lang="es">
+        <span class="flow-step">Necesidad registrada</span><span class="flow-arrow">→</span>
+        <span class="flow-step">Coincidencia identificada</span><span class="flow-arrow">→</span>
+        <span class="flow-step">Equipo aprueba</span><span class="flow-arrow">→</span>
+        <span class="flow-step">Conexión directa</span><span class="flow-arrow">→</span>
+        <span class="flow-step">Impacto documentado</span>
+      </div>
+      <div class="flow" data-lang="en">
+        <span class="flow-step">Need registered</span><span class="flow-arrow">→</span>
+        <span class="flow-step">Match identified</span><span class="flow-arrow">→</span>
+        <span class="flow-step">Team approves</span><span class="flow-arrow">→</span>
+        <span class="flow-step">Direct connection</span><span class="flow-arrow">→</span>
+        <span class="flow-step">Impact documented</span>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <span class="example-tag" data-lang="es">Ejemplo ilustrativo</span>
+      <span class="example-tag" data-lang="en">Illustrative example</span>
+      <h3 data-lang="es">La ayuda que no necesita aduana</h3>
+      <h3 data-lang="en">The help that needs no customs</h3>
+      <p data-lang="es">Una organización comunitaria en Caracas registra que necesita apoyo de salud mental para familias afectadas. Tres psicólogos de nuestra red, uno en Miami, uno en Orlando y uno en San Juan, ofrecen sesiones virtuales semanales. El equipo aprueba la conexión y las sesiones empiezan la misma semana. Sin envíos, sin aduanas, sin esperas. Gran parte de la ayuda más valiosa es profesional y remota: medicina, ingeniería, educación, traducción, asesoría legal.</p>
+      <p data-lang="en">A community organization in Caracas registers that it needs mental health support for affected families. Three psychologists from our network, one in Miami, one in Orlando, and one in San Juan, offer weekly virtual sessions. The team approves the connection and sessions begin the same week. No shipping, no customs, no waiting. Much of the most valuable help is professional and remote: medicine, engineering, education, translation, legal guidance.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2 data-lang="es">Buscamos voluntarios</h2>
+    <h2 data-lang="en">We are looking for volunteers</h2>
+    <p class="section-lead" data-lang="es">Un equipo pequeño y comprometido coordina esta respuesta. La plataforma organiza el trabajo pesado; tú mantienes el orden humano. No necesitas ser técnico. Es un compromiso a largo plazo: la recuperación toma meses, no días.</p>
+    <p class="section-lead" data-lang="en">A small, committed team coordinates this response. The platform organizes the heavy lifting; you keep it human. You do not need to be technical. This is a long-term commitment: recovery takes months, not days.</p>
+    <div class="grid grid-4">
+      <div class="card"><h3 data-lang="es">Coordinador líder</h3><h3 data-lang="en">Lead Coordinator</h3><p data-lang="es">Dirige el equipo y revisa el tablero a diario.</p><p data-lang="en">Runs the team and reviews the board daily.</p><span class="role-time">~20-30 min/día</span></div>
+      <div class="card"><h3 data-lang="es">Intake y verificación</h3><h3 data-lang="en">Intake &amp; Verification</h3><p data-lang="es">Recibe necesidades y confirma organizaciones.</p><p data-lang="en">Receives needs and confirms organizations.</p><span class="role-time">~2-4 h/semana</span></div>
+      <div class="card"><h3 data-lang="es">Alianzas</h3><h3 data-lang="en">Partnerships</h3><p data-lang="es">Busca empresas y profesionales que puedan ayudar.</p><p data-lang="en">Finds businesses and professionals who can help.</p><span class="role-time">~2-4 h/semana</span></div>
+      <div class="card"><h3 data-lang="es">Comunicación</h3><h3 data-lang="en">Communications</h3><p data-lang="es">Publica avances y mantiene la transparencia.</p><p data-lang="en">Posts progress and keeps it transparent.</p><span class="role-time">~2-3 h/semana</span></div>
+    </div>
+    <div style="margin-top:28px">
+      <a class="btn btn-primary" style="background:var(--blue);color:#fff" href="https://docs.google.com/forms/d/e/1FAIpQLSfg2-Iob0suaObTUSltjCHF2VEXz3uLafzRjJc7Nh-P3460lw/viewform"><span data-lang="es">Quiero ser voluntario</span><span data-lang="en">I want to volunteer</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <h2 data-lang="es">Tipos de aliados</h2>
+    <h2 data-lang="en">Partner types</h2>
+    <p class="section-lead" data-lang="es">La red que hace posible la respuesta.</p>
+    <p class="section-lead" data-lang="en">The network that makes the response possible.</p>
+    <div class="chips" data-lang="es">
+      <span class="chip">ONGs</span><span class="chip">Iglesias</span><span class="chip">Hospitales</span><span class="chip">Universidades</span><span class="chip">Empresas</span><span class="chip">Logística</span><span class="chip">Tecnología</span><span class="chip">Voluntarios profesionales</span>
+    </div>
+    <div class="chips" data-lang="en">
+      <span class="chip">NGOs</span><span class="chip">Churches</span><span class="chip">Hospitals</span><span class="chip">Universities</span><span class="chip">Businesses</span><span class="chip">Logistics</span><span class="chip">Technology</span><span class="chip">Professional volunteers</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2 data-lang="es">La ayuda que dura: trabajo</h2>
+    <h2 data-lang="en">The help that lasts: work</h2>
+    <p class="section-lead" data-lang="es">La ayuda de emergencia alimenta una semana. Un ingreso recurrente sostiene a una familia todo el año. Por eso conectamos freelancers venezolanos verificados con empresas que necesitan talento.</p>
+    <p class="section-lead" data-lang="en">Emergency aid feeds a family for a week. Recurring income sustains a family all year. That is why we connect vetted Venezuelan freelancers with businesses that need talent.</p>
+    <div class="grid grid-3">
+      <div class="card"><div class="num">1</div><h3 data-lang="es">El freelancer se registra y es verificado</h3><h3 data-lang="en">The freelancer registers and is vetted</h3><p data-lang="es">Identidad, portafolio, entrevista y referencias.</p><p data-lang="en">Identity, portfolio, interview, and references.</p></div>
+      <div class="card"><div class="num">2</div><h3 data-lang="es">Una empresa publica una oportunidad</h3><h3 data-lang="en">A business posts an opportunity</h3><p data-lang="es">Empezando por los negocios de nuestra propia red profesional.</p><p data-lang="en">Starting with the businesses of our own professional network.</p></div>
+      <div class="card"><div class="num">3</div><h3 data-lang="es">Conexión directa entre ustedes</h3><h3 data-lang="en">Direct connection between you</h3><p data-lang="es">Contrato y pago directo entre empresa y freelancer, en plataformas establecidas. PROFESA no interviene en el pago.</p><p data-lang="en">Contract and payment directly between business and freelancer, on established platforms. PROFESA is not involved in payment.</p></div>
+    </div>
+    <div class="cta-row" style="margin-top:28px">
+      <!-- Swap the freelancer mailto for the waitlist form URL once create-talent-form.gs is run -->
+      <a class="btn btn-primary" style="background:var(--blue);color:#fff" href="mailto:president@profesafl.com?subject=Soy%20freelancer%20en%20Venezuela%20-%20Lista%20de%20espera%20Talento"><span data-lang="es">Soy freelancer en Venezuela</span><span data-lang="en">I am a freelancer in Venezuela</span></a>
+      <a class="btn" style="border:2px solid var(--blue);color:var(--blue)" href="mailto:president@profesafl.com?subject=Quiero%20contratar%20talento%20venezolano%20-%20PRN"><span data-lang="es">Quiero contratar talento</span><span data-lang="en">I want to hire talent</span></a>
+    </div>
+    <p style="margin-top:18px;font-size:13.5px;color:var(--text-soft)" data-lang="es">Estamos construyendo el registro; te contactaremos cuando abra. PROFESA no es agencia de empleo, no cobra comisión y no procesa pagos. Verificamos, presentamos y documentamos.</p>
+    <p style="margin-top:18px;font-size:13.5px;color:var(--text-soft)" data-lang="en">We are building the registry; we will contact you when it opens. PROFESA is not an employment agency, charges no commission, and processes no payments. We verify, introduce, and document.</p>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <h2 data-lang="es">Preguntas frecuentes</h2>
+    <h2 data-lang="en">Frequently asked questions</h2>
+    <p class="section-lead" data-lang="es">Las preguntas que cualquier persona seria debería hacer.</p>
+    <p class="section-lead" data-lang="en">The questions any serious person should ask.</p>
+
+    <details class="faq">
+      <summary><span data-lang="es">¿Por qué PROFESA no recibe donaciones?</span><span data-lang="en">Why doesn't PROFESA receive donations?</span></summary>
+      <div class="faq-body">
+        <p data-lang="es">Por diseño. Cuando una organización coordina Y maneja fondos al mismo tiempo, la transparencia se complica. Nosotros elegimos un solo rol: coordinar. Todo apoyo financiero o material va directo de quien lo da a la organización verificada que lo recibe. Así cada quien puede verificar exactamente a dónde fue su ayuda.</p>
+        <p data-lang="en">By design. When an organization coordinates AND handles funds at the same time, transparency gets complicated. We chose a single role: coordinating. All financial or material support goes directly from the giver to the verified organization that receives it. That way everyone can verify exactly where their help went.</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary><span data-lang="es">¿Cómo sé que las organizaciones son reales?</span><span data-lang="en">How do I know the organizations are real?</span></summary>
+      <div class="faq-body">
+        <p data-lang="es">Ninguna organización se publica sin pasar el proceso de verificación: registro con documentos, aval personal de un miembro de la red PROFESA, revisión directa y contacto. Los estados de verificación son siempre visibles. Si algo dice "pendiente", lo verás como pendiente.</p>
+        <p data-lang="en">No organization is published without passing the verification process: registration with documents, personal vouching by a PROFESA network member, direct review, and contact. Verification states are always visible. If something says "pending," you will see it as pending.</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary><span data-lang="es">¿Qué gana PROFESA con esto?</span><span data-lang="en">What does PROFESA gain from this?</span></summary>
+      <div class="faq-body">
+        <p data-lang="es">Nada financiero. PROFESA es una asociación de profesionales y esta es nuestra misión: poner nuestra experiencia al servicio de la comunidad. Lo único que buscamos ganar es lo que se gana haciendo esto bien: confianza, y una comunidad más fuerte.</p>
+        <p data-lang="en">Nothing financial. PROFESA is a professional association and this is our mission: putting our expertise at the service of the community. The only thing we seek to gain is what you gain by doing this well: trust, and a stronger community.</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary><span data-lang="es">¿Puedo ayudar si no vivo en la Florida?</span><span data-lang="en">Can I help if I don't live in Florida?</span></summary>
+      <div class="faq-body">
+        <p data-lang="es">Sí. Muchas de las necesidades se pueden atender de forma remota: ingeniería, salud mental, traducción, tecnología, asesoría legal y más. También puedes ofrecer recursos desde cualquier lugar. La coordinación es digital; la ayuda no tiene código postal.</p>
+        <p data-lang="en">Yes. Many needs can be met remotely: engineering, mental health, translation, technology, legal guidance, and more. You can also offer resources from anywhere. Coordination is digital; help has no zip code.</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary><span data-lang="es">¿Qué pasa después de que ofrezco ayuda?</span><span data-lang="en">What happens after I offer help?</span></summary>
+      <div class="faq-body">
+        <p data-lang="es">Tu oferta entra al registro y se compara con las necesidades verificadas. Cuando hay una coincidencia, un coordinador la revisa y la aprueba. Entonces te presentamos directamente con la organización, y ustedes acuerdan la logística entre sí. Cada paso queda documentado.</p>
+        <p data-lang="es" style="margin-top:10px">Un dato útil: las ayudas que más rápido llegan son los servicios profesionales remotos, la compra local dentro de Venezuela y los envíos a través de aliados que ya tienen canales de importación establecidos.</p>
+        <p data-lang="en">Your offer enters the registry and is compared against verified needs. When there is a match, a coordinator reviews and approves it. Then we introduce you directly to the organization, and you agree on logistics between yourselves. Every step is documented.</p>
+        <p data-lang="en" style="margin-top:10px">A useful note: the help that arrives fastest is remote professional services, local purchasing inside Venezuela, and shipments through partners who already have established import channels.</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary><span data-lang="es">¿Cómo funciona la contratación de freelancers venezolanos?</span><span data-lang="en">How does hiring Venezuelan freelancers work?</span></summary>
+      <div class="faq-body">
+        <p data-lang="es">Verificamos la identidad, el portafolio y las referencias de cada freelancer antes de presentarlo. Cuando una empresa quiere contratar, hacemos la presentación y de ahí en adelante todo es directo entre ustedes: contrato, condiciones y pago, a través de plataformas establecidas de trabajo freelance. PROFESA no es agencia de empleo, no cobra comisión a ninguna de las partes y nunca procesa pagos. Un ingreso recurrente es la ayuda más duradera que existe.</p>
+        <p data-lang="en">We verify each freelancer's identity, portfolio, and references before introducing them. When a business wants to hire, we make the introduction and from there everything is direct between you: contract, terms, and payment, through established freelance platforms. PROFESA is not an employment agency, charges no commission to either side, and never processes payments. Recurring income is the most durable help there is.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<div class="cta-band">
+  <div class="container">
+    <h2 data-lang="es">La ayuda organizada llega más lejos.</h2>
+    <h2 data-lang="en">Organized help goes further.</h2>
+    <p data-lang="es">Comparte esta página. Cada persona que la vea es una conexión potencial para Venezuela.</p>
+    <p data-lang="en">Share this page. Every person who sees it is a potential connection for Venezuela.</p>
+    <a class="btn btn-primary" href="mailto:president@profesafl.com?subject=Quiero%20ofrecer%20ayuda%20-%20PROFESA%20Response%20Network"><span data-lang="es">Ofrecer ayuda ahora</span><span data-lang="en">Offer help now</span></a>
+    <!-- Replace https://u1000don.github.io/profesa-responde/ with the live URL after deploying (e.g. Netlify Drop) -->
+    <div class="share-row">
+      <a class="share-btn" href="https://wa.me/?text=Venezuela%20necesita%20ayuda%20organizada.%20Mira%20como%20la%20red%20PROFESA%20esta%20conectando%20ayuda%20verificada%3A%20https://u1000don.github.io/profesa-responde/" target="_blank" rel="noopener">
+        <span data-lang="es">Compartir en WhatsApp</span><span data-lang="en">Share on WhatsApp</span>
+      </a>
+      <button class="share-btn" onclick="copyLink(this)">
+        <span data-lang="es">Copiar enlace</span><span data-lang="en">Copy link</span>
+      </button>
+      <a class="share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url=https://u1000don.github.io/profesa-responde/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="contact-block">
+      <div>
+        <div style="color:#fff;font-weight:700;font-size:15px" data-lang="es">¿Preguntas? Escríbenos.</div>
+        <div style="color:#fff;font-weight:700;font-size:15px" data-lang="en">Questions? Write to us.</div>
+        <div class="contact-meta" data-lang="es">Respondemos en 24 a 48 horas · Sur de la Florida, EE. UU.</div>
+        <div class="contact-meta" data-lang="en">We reply within 24 to 48 hours · South Florida, USA</div>
+      </div>
+      <a href="mailto:president@profesafl.com">president@profesafl.com</a>
+    </div>
+    <div class="disclaimer">
+      <div data-lang="es">PROFESA Response Network es una plataforma de coordinación y conexión de aliados. PROFESA no recauda, retiene, administra ni distribuye donaciones de ayuda por desastres. Cualquier contribución financiera, donación material o acuerdo de servicios debe realizarse directamente entre el donante, patrocinador, empresa o voluntario y la organización verificada receptora. PROFESA puede facilitar presentaciones, documentación y coordinación, pero no garantiza entregas, desempeño, tratamiento fiscal, cumplimiento legal ni resultados.</div>
+      <div data-lang="en">PROFESA Response Network is a coordination and partner-matching platform. PROFESA does not collect, hold, manage, or distribute disaster relief donations. Any financial contribution, material donation, or service agreement must be made directly between the donor, sponsor, business, or volunteer and the receiving verified organization. PROFESA may help facilitate introductions, documentation, and coordination, but does not guarantee delivery, performance, tax treatment, legal compliance, or outcomes.</div>
+    </div>
+    <div class="foot-brand">PROFESA Response Network</div>
+    <div class="foot-meta" data-lang="es">Powered by Relay · Coordinación, no custodia · © 2026 PROFESA</div>
+    <div class="foot-meta" data-lang="en">Powered by Relay · Coordination, not custody · © 2026 PROFESA</div>
+  </div>
+</footer>
+
+<script>
+  // Hero media slot: if neither hero.mp4 nor hero.jpg exists, hide the media layer (solid navy stays)
+  (function () {
+    var media = document.getElementById('heroMedia');
+    var video = document.getElementById('heroVideo');
+    if (!media || !video) return;
+    var probe = new Image();
+    probe.onerror = function () {
+      // poster missing; keep layer only if the video actually plays
+      video.addEventListener('error', hide, true);
+      if (video.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) hide();
+    };
+    probe.src = 'hero.jpg';
+    function hide() { media.style.display = 'none'; }
+    video.addEventListener('error', function () {
+      // source failed: fine if poster exists (it stays visible); probe handles the rest
+    }, true);
+  })();
+
+  function toggleLang() {
+    document.body.classList.toggle('lang-en');
+    document.documentElement.lang = document.body.classList.contains('lang-en') ? 'en' : 'es';
+  }
+  // Copy page link (share row)
+  function copyLink(btn) {
+    // https://u1000don.github.io/profesa-responde/ is replaced at deploy time; fall back to the browser URL
+    const url = location.href.startsWith('http') ? location.href : 'https://u1000don.github.io/profesa-responde/';
+    const done = () => {
+      const prev = btn.innerHTML;
+      btn.textContent = document.body.classList.contains('lang-en') ? 'Copied!' : 'Copiado!';
+      setTimeout(() => { btn.innerHTML = prev; }, 1600);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(done);
+    } else {
+      const ta = document.createElement('textarea');
+      ta.value = url; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta); done();
+    }
+  }
+  // Counter animation on scroll into view
+  const counters = document.querySelectorAll('[data-count]');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      const target = parseInt(el.dataset.count, 10) || 0;
+      let cur = 0;
+      const step = Math.max(1, Math.ceil(target / 40));
+      const tick = () => {
+        cur = Math.min(target, cur + step);
+        el.textContent = cur;
+        if (cur < target) requestAnimationFrame(tick);
+      };
+      tick();
+      io.unobserve(el);
+    });
+  }, { threshold: 0.4 });
+  counters.forEach(c => io.observe(c));
+</script>
+
+</body>
+</html>
