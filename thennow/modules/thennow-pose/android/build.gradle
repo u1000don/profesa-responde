@@ -1,0 +1,10 @@
+apply plugin: 'expo-module-gradle-plugin'
+
+android {
+  namespace "expo.modules.thennowpose"
+}
+
+dependencies {
+  // On-device body pose landmarks (no images ever leave the device).
+  implementation 'com.google.mlkit:pose-detection-accurate:18.0.0-beta5'
+}

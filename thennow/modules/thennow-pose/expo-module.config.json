@@ -1,0 +1,9 @@
+{
+  "platforms": ["apple", "android"],
+  "apple": {
+    "modules": ["ThenNowPoseModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.thennowpose.ThenNowPoseModule"]
+  }
+}
