@@ -1,0 +1,66 @@
+{
+  "expo": {
+    "name": "ThenNow",
+    "slug": "thennow",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "thennow",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#0B0B0F",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0B0B0F"
+    },
+    "ios": {
+      "bundleIdentifier": "app.thennow.mobile",
+      "supportsTablet": false,
+      "infoPlist": {
+        "NSCameraUsageDescription": "ThenNow uses the camera to capture aligned progress photos. Images stay on your device unless you choose to share them.",
+        "NSPhotoLibraryUsageDescription": "ThenNow needs access to your photo library so you can add existing photos to a project.",
+        "NSPhotoLibraryAddUsageDescription": "ThenNow saves your exported progress videos to your photo library."
+      }
+    },
+    "android": {
+      "package": "app.thennow.mobile",
+      "permissions": ["android.permission.CAMERA", "android.permission.READ_MEDIA_IMAGES"],
+      "adaptiveIcon": {
+        "backgroundColor": "#0B0B0F",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "ThenNow needs access to your photo library so you can add existing photos to a project.",
+          "savePhotosPermission": "ThenNow saves your exported progress videos to your photo library."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "ThenNow needs access to your photo library so you can add existing photos to a project."
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "deploymentTarget": "16.4",
+            "useFrameworks": "static"
+          },
+          "android": {
+            "minSdkVersion": 24
+          }
+        }
+      ]
+    ]
+  }
+}

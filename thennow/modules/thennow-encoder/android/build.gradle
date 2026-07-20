@@ -1,0 +1,5 @@
+apply plugin: 'expo-module-gradle-plugin'
+
+android {
+  namespace "expo.modules.thennowencoder"
+}
